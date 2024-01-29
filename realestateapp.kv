@@ -1,0 +1,112 @@
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: username
+            hint_text: 'Username'
+        TextInput:
+            id: license_id
+            hint_text: 'License ID'
+        Button:
+            text: 'Login'
+            on_release:
+                app.username = username.text
+                app.license_id = license_id.text
+                root.login_user()
+
+
+<EstateListScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Ricci Hall'
+            on_release: root.go_to_ricci_hall()
+        Button:
+            text: 'Back'
+            on_release: root.go_back()
+<RicciHallScreen>:
+    BoxLayout:
+        orientation: 'horizontal'
+        
+        Image:
+            source: 'ricci_hall.jpg'
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_x: 0.5
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_x: 0.5
+            padding: dp(10)
+            spacing: dp(10)
+
+            Widget:
+                # Spacer
+                size_hint_y: 0.5
+
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: dp(10)
+
+                Label:
+                    text: 'Ricci Hall'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                Label:
+                    text: '3K HKD/month'
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                Button:
+                    text: 'User: ' + root.user_name
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5}
+                    on_release: root.show_agent_details()
+                Label:
+                    text: 'ID: ' + root.license_id
+                    size_hint: None, None
+                    size: self.texture_size
+                    pos_hint: {'center_x': 0.5}
+
+            Widget:
+                # Spacer
+                size_hint_y: 0.5
+
+            Button:
+                text: 'Back'
+                size_hint: 1, None
+                size: '200dp', '40dp'
+                pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+                on_release:
+                    root.manager.transition.direction = 'right'
+                    root.manager.current = 'estate_list'
+
+<AgentScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        Image:
+            source: 'naruto.jpg'
+            allow_stretch: True
+            keep_ratio: True
+            size_hint_y: 0.5
+
+        Label:
+            text: 'Name: ' + root.agent_name
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Label:
+            text: 'License ID: ' + root.agent_license_id
+            size_hint_y: None
+            height: self.texture_size[1]
+
+        Button:
+            text: 'Back'
+            size_hint: None, None
+            size: '200dp', '40dp'  # Adjust the size as needed
+            pos_hint: {'center_x': 0.5, 'center_y': 0.1}
+            on_release:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'ricci_hall'
